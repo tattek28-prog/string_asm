@@ -1,0 +1,26 @@
+; Macro.asm
+; Example of a simple macro to add two numbers
+
+section .data
+    num1 db 5
+    num2 db 10
+    result db 0
+
+section .text
+    global _start
+
+; Macro definition
+%macro ADD_NUMS 3
+    mov al, %1
+    add al, %2
+    mov %3, al
+%endmacro
+
+_start:
+    ; Using the macro
+    ADD_NUMS [num1], [num2], [result]
+
+    ; Exit system call
+    mov eax, 60      ; syscall: exit
+    xor edi, edi     ; status 0
+    syscall
